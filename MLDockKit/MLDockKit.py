@@ -83,10 +83,13 @@ def calculate_lipinski_descriptors(smiles):
     oxygen_count = sum(1 for atom in mol.GetAtoms() if atom.GetAtomicNum() == 8)
 
     # Evaluate Rule of 5 criteria
-    mw_status = "Rule of 5 not violated (less than or equal to 500)" if molecular_weight <= 500 else "Rule of 5 violated (greater than 500)"
-    logP_status = "Rule of 5 not violated (less than or equal to 5)" if logP <= 5 else "Rule of 5 violated (greater than 5)"
-    h_donor_status = "Rule of 5 not violated (less than or equal to 5)" if num_h_donors <= 5 else "Rule of 5 violated (greater than 5)"
-    h_acceptor_status = "Rule of 5 not violated (less than or equal to 10)" if num_h_acceptors <= 10 else "Rule of 5 violated (greater than 10)"
+    mw_status = "Rule of 5 not violated (≤500)" if molecular_weight <= 500 else "Rule of 5 violated (>500)"
+    logP_status = "Rule of 5 not violated (≤5)" if logP <= 5 else "Rule of 5 violated (>5)"
+    h_donor_status = "Rule of 5 not violated (≤5)" if num_h_donors <= 5 else "Rule of 5 violated (>5)"
+    h_acceptor_status = "Rule of 5 not violated (≤10)" if num_h_acceptors <= 10 else "Rule of 5 violated (>10)"
+    rotatable_bonds_status = "Veber’s Rule not violated (≤10)" if num_rotatable_bonds <= 10 else "Veber’s Rule violated (>10)"
+    carbon_count_status = "Acceptable range (≤30)" if carbon_count <= 30 else "Excessive carbon content (>30), potential high lipophilicity"
+    oxygen_count_status = "Acceptable range (≤6)" if oxygen_count <= 6 else "Excessive oxygen content (>6), potential high polarity"
 
     # Format output
     formatted_descriptors = (
@@ -94,6 +97,9 @@ def calculate_lipinski_descriptors(smiles):
         f"LogP = {logP:.2f}: {logP_status}\n"
         f"Number of Hydrogen Bond Donors = {num_h_donors}: {h_donor_status}\n"
         f"Number of Hydrogen Bond Acceptors = {num_h_acceptors}: {h_acceptor_status}\n"
+        f"Number of Rotatable Bonds = {num_rotatable_bonds}: {rotatable_bonds_status}\n"
+        f"Carbon Count = {carbon_count}: {carbon_count_status}\n"
+        f"Oxygen Count = {oxygen_count}: {oxygen_count_status}\n"
     )
 
     return formatted_descriptors
