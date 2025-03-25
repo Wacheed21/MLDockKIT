@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as readme_file:
 
 setuptools.setup(
     name="MLDockKit",
-    version="0.1.1",
+    version="0.1.2",
     include_package_data=True,
     description="Python package that calculates Lipinski descriptors, predicts pIC50, and performs docking",
     url="https://github.com/clabe-wekesa/MLDockKit",
